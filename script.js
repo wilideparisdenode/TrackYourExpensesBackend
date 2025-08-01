@@ -19,8 +19,8 @@ async function createAdminUser() {
     console.log('Connected to MongoDB');
 
     const userData = {
-      name: "wilofo",
-      email: "wilofo@gmail.com",
+      name: "faith",
+      email: "faith@gmail.com",
       password: "670012839",
       isAdmin: true
     };

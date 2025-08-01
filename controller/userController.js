@@ -13,9 +13,8 @@ async function getAlluser(req, res) {
   }
 }
 
-// Create new user
 async function createNewuser(req, res) {
-  let { name, email, password } = req.body;
+  let { name, email, password, isAdmin } = req.body;
   const salt = 10;
   try {
     const existingUser = await user.findOne({ email });
@@ -24,7 +23,7 @@ async function createNewuser(req, res) {
     }
     bcrypt.hash(password, salt, async (err, hash) => {
       if (err) return res.status(500).send(err);
-      const newUser = new user({ name, email, password: hash });
+      const newUser = new user({ name, email, password: hash, isAdmin }); // <-- include isAdmin here
       await newUser.save();
       res.send(newUser);
     });
