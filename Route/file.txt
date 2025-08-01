@@ -1,0 +1,211 @@
+const sequelize=require("../utils/sequelize.js");
+const {DataTypes} = require('sequelize');
+
+const budget=sequelize.define("budget",{
+    id:{
+        type:DataTypes.INTEGER,
+        autoIncrement:true,
+        primaryKey:true,
+    },
+    income_id:{
+        type:DataTypes.INTEGER,
+        allowNull:false
+    },  
+    user_id:{
+        type:DataTypes.INTEGER,
+        allowNull:false,
+    },  
+    amount:{
+        type:DataTypes.FLOAT,
+        allowNull:false,
+    },
+   start_date:{
+        type:DataTypes.DATE,
+        defaultValue:DataTypes.NOW,
+    },
+    end_date:{
+        type:DataTypes.DATE,
+        defaultValue:null,
+    },
+  
+    description:{
+        type:DataTypes.STRING,
+        allowNull:true,
+    },
+
+},{tableName:'budget',
+    timestamps:false,}
+)
+
+
+module.exports=budget; 
+const sequelize=require("../utils/sequelize.js");
+const { DataTypes}=require("sequelize");
+const Expense=require('./expenseModel.js');
+ 
+const category=sequelize.define("category",{
+    id:{
+        type:DataTypes.INTEGER,
+        primaryKey:true,
+        autoIncrement:true
+    },
+    name:{
+        type:DataTypes.STRING,
+       
+        allowNull:false
+    },
+    description:{
+        type:DataTypes.TEXT,
+        allowNull:true,
+    }
+    
+},{
+    tableName:"categories",
+    timestamps:true
+})
+category.hasMany(Expense, { foreignKey: 'category_id' });
+
+module.exports=category;
+const sequelize=require('../utils/sequelize.js');
+const{DataTypes}=require('sequelize');
+
+const expenses=sequelize.define("expenses",{
+    id:{
+        type:DataTypes.INTEGER,
+        autoIncrement:true,
+        primaryKey:true,
+    },
+    user_id:{
+        type:DataTypes.INTEGER,
+        allowNull:false,
+    },
+    amount:{
+        type:DataTypes.FLOAT,
+        allowNull:false,
+    },
+    date:{
+        type:DataTypes.DATE,
+        defaultValue:DataTypes.NOW,
+    },
+    description:{
+        type:DataTypes.STRING,
+        allowNull:true,
+    },
+    category_id: {
+        type: DataTypes.INTEGER,
+        allowNull: false,         references: {
+          model: 'expense_categories',
+          key: 'id'
+        }
+},
+budget_id: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+    references: {
+        model: 'budget',
+        key: 'id'
+      }
+  }},{
+    tableName:'expenses',
+    timestamps:false,
+
+})
+
+module.exports=expenses;
+const {DataTypes} = require('sequelize');
+const sequelize = require('../utils/sequelize.js');
+
+const income=sequelize.define("income",{
+    user_id:{
+        type:DataTypes.INTEGER,
+        allowNull:false,
+    },
+    amount:{type:DataTypes.FLOAT,
+        allowNull:false,
+    },
+    date:{
+        type:DataTypes.DATE,
+        defaultValue:DataTypes.NOW,
+    },
+    description:{
+        type:DataTypes.STRING,
+        allowNull:true,
+    },
+    source:{
+        type:DataTypes.STRING,
+        allowNull:true,
+    },
+},{
+    tableName:'income',
+    timestamps:false,
+
+})
+
+module.exports=income;
+const sequelize=require("../utils/sequelize.js");
+const {DataTypes}=require("sequelize");
+
+const Reports=sequelize.define("reports",{
+    user_id:{
+        type:DataTypes.INTEGER,
+        allowNull:true
+    },
+    start_date: {
+        type: DataTypes.DATE,
+        allowNull: false
+      },
+      end_date: {
+        type: DataTypes.DATE,
+        allowNull: false
+      },
+    total_income:{
+        type:DataTypes.FLOAT,
+        allowNull:false,
+    },
+    total_expenses:{
+        type:DataTypes.FLOAT,
+        allowNull:false
+    },
+   balance:{
+    type:DataTypes.FLOAT,
+    allowNull:false
+   }
+},{
+    tableName:"report",
+    timestamps:false
+})
+
+module.exports=Reports;
+// filepath: /home/wilson/Desktop/wilson/expence_Tracker/server/model/userModel.js
+const { DataTypes } = require('sequelize');
+const sequelize = require('../utils/sequelize.js');
+
+const User = sequelize.define('User', {
+    id: {
+        type: DataTypes.INTEGER,
+        autoIncrement: true,
+        primaryKey: true,
+    },
+    name: {
+        type: DataTypes.STRING,
+        allowNull: false,  
+    },
+    email: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        unique: true,
+    },
+    password: {
+        type: DataTypes.STRING,
+        allowNull: false,
+    },
+    created_at: {
+        type: DataTypes.DATE,
+        defaultValue: DataTypes.NOW,
+    },
+}, {
+    tableName: 'user',
+    timestamps: false,
+});
+
+module.exports = User;
