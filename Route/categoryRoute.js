@@ -7,4 +7,4 @@ categoryRouter.get("/",protect,viewCategory);
 categoryRouter.delete("/:id",protect,deleteCategory);
 categoryRouter.post("/create",protect,createcategory);
 
-module.exports=categoryRouter;  
+module.exports=categoryRouter;     
