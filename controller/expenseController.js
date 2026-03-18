@@ -3,6 +3,7 @@ const expense = require("../model/expenseModel");
 async function addExpense(req, res) {
   try {
     const { amount, description, date, userId, budget_id, category_id } = req.body;
+    console.log(req.body)
     if (!category_id) {
       return res.status(400).json({
         success: false,

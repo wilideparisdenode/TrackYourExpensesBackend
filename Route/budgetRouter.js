@@ -10,4 +10,4 @@ budgetRouter.post("/create_budget",protect,createBudget);
 budgetRouter.get("/view/:userId/:income_id", protect,trackBudget); 
 
 module.exports=budgetRouter;
-   
+      

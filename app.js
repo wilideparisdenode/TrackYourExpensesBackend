@@ -7,9 +7,12 @@ const categoryRouter = require("./Route/categoryRoute.js");
 const expense_categories = require("./Route/expenseCategoryRoute.js")
 const reportRouter = require("./Route/reportRoute.js")
 const app = express();
+const morgan = require('morgan');
+
 const cors = require("cors");
 
 // Enhanced CORS configuration
+app.use(morgan('dev'))
 app.use(cors({
   origin: '*', 
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
